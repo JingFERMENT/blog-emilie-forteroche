@@ -13,12 +13,12 @@ class CommentController
         $content = Utils::request("content");
         $idArticle = Utils::request("idArticle");
 
-        // On vérifie que les données sont valides.
+        // On vérifie si les données sont valides.
         if (empty($pseudo) || empty($content) || empty($idArticle)) {
             throw new Exception("Tous les champs sont obligatoires. 3");
         }
 
-        // On vérifie que l'article existe.
+        // On vérifie si l'article existe.
         $articleManager = new ArticleManager();
         $article = $articleManager->getArticleById($idArticle);
         if (!$article) {

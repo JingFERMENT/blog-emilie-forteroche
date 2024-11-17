@@ -32,6 +32,7 @@ class ArticleController
         }
 
         $commentManager = new CommentManager();
+        // récupéer tous les commentaires liés à cet article 
         $comments = $commentManager->getAllCommentsByArticleId($id);
 
         $view = new View($article->getTitle());

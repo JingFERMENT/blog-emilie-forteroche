@@ -28,11 +28,15 @@ class View
     public function render(string $viewName, array $params = []) : void 
     {
         // On s'occupe de la vue envoyée
+        // La méthode est utilisée pour transformer le nom de la vue en chemin d'accès à un fichier.
         $viewPath = $this->buildViewPath($viewName);
         
         // Les deux variables ci-dessous sont utilisées dans le "main.php" qui est le template principal.
+        // la méthod est utilisée pour charger le fichier de vue spécifié  
         $content = $this->_renderViewFromTemplate($viewPath, $params);
         $title = $this->title;
+       
+        //utilisation des templates générales 
         ob_start();
         require(MAIN_VIEW_PATH);
         echo ob_get_clean();
