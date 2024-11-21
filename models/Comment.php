@@ -11,6 +11,7 @@ class Comment extends AbstractEntity
     private string $pseudo;
     private string $content;
     private DateTime $dateCreation;
+    private string $nbOfComments;
     
     /**
      * Getter pour l'id de l'article.
@@ -93,4 +94,21 @@ class Comment extends AbstractEntity
         $this->dateCreation = $dateCreation;
     }
 
+
+    /**
+     * Get the value of nbOfComments
+     */ 
+    public function getNbOfComments():int
+    {
+        return $this->nbOfComments;
+    }
+
+    /**
+     * Set the value of nbOfComments
+     *
+     */ 
+    public function setNbOfComments($nbOfComments)
+    {
+        $this->nbOfComments = $nbOfComments;
+    }
 }

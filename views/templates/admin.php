@@ -5,6 +5,8 @@
      */
 ?>
 
+<a class="submit" href="index.php?action=showMonitoringPage">Page de monitoring</a>
+
 <h2>Edition des articles</h2>
 
 <div class="adminArticle">
