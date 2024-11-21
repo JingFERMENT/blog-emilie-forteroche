@@ -1,5 +1,7 @@
 <?php
 
+
+
 /**
  * Classe qui gère les articles.
  */
@@ -14,9 +16,21 @@ class ArticleManager extends AbstractEntityManager
         $sql = "SELECT * FROM article";
         $result = $this->db->query($sql);
         $articles = [];
+        
+        $commentManager = new CommentManager();
 
-        while ($article = $result->fetch()) {
-            $articles[] = new Article($article);
+        while ($articleData = $result->fetch()) {
+
+            // ajouter le nombre de commentaire
+            $articleId = $articleData['id'];
+            $nbOfComments = $commentManager->countCommentsForArticle($articleId);
+            $articleData['nbOfComments'] = $nbOfComments;
+            
+            $dateOfPublication = new DateTime($articleData['date_creation']);
+            
+            $articleData['date_creation'] = $dateOfPublication;
+            $articles[] = new Article($articleData);  
+
         }
         return $articles;
     }
@@ -31,6 +45,7 @@ class ArticleManager extends AbstractEntityManager
         $sql = "SELECT * FROM article WHERE id = :id";
         $result = $this->db->query($sql, ['id' => $id]);
         $article = $result->fetch();
+     
         if ($article) {
             return new Article($article);
         }

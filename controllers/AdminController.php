@@ -36,7 +36,7 @@ class AdminController {
         // on récupère un article 
         $articleManager = new ArticleManager();
         $articles = $articleManager->getAllArticles();
-        
+
         // On affiche la page de modification de l'article.
         $view = new View("Page de monitoring");
         $view->render("monitoringPage",[

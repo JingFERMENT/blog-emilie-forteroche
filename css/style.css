@@ -317,6 +317,15 @@ a.info {
     display: flex; 
 }
 
+.articleLine.header {
+    font-weight: bold;
+}
+
+.articleLine.header .actions {
+    justify-content: center;
+    min-width: 280px;
+}
+
 .articleLine div {
     display: flex;
     align-items: center;
@@ -326,10 +335,13 @@ a.info {
     font-weight: bold;
     min-width: 200px;
     width: 200px;
+    justify-content: center;
 }
 
 .articleLine .content {
-    flex-grow: 1;
+    justify-content: center;
+    font-weight: bold;
+    min-width: 520px;
 }
 
 .articleLine > div {
@@ -337,6 +349,13 @@ a.info {
     border: 1px solid var(--backgroundColor);
 }
 
+.articleLine:first-child {
+    color: black;
+    background-color: var(--backgroundColor);
+}
+.articleLine:nth-child(even) {
+    background-color: var(--headerColor);
+}
 /** 
  * Footer global de la page.
  */
