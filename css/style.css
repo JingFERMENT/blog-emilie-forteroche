@@ -356,6 +356,21 @@ a.info {
 .articleLine:nth-child(even) {
     background-color: var(--headerColor);
 }
+
+
+/* Style par défaut pour les icônes */
+.fa-solid {
+    font-size: 20px;
+    color: rgb(176, 173, 173);
+}
+
+
+/* Style pour l'icône active */
+.fa-caret-up.active, .fa-caret-down.active {
+    color: var(--commentColor); /* Couleur pour l'icône active */
+    font-weight: bold;
+}
+
 /** 
  * Footer global de la page.
  */

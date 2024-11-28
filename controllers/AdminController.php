@@ -33,14 +33,27 @@ class AdminController {
     {
         $this->checkIfUserIsConnected();
 
-        // on récupère un article 
-        $articleManager = new ArticleManager();
-        $articles = $articleManager->getAllArticles();
+        // on récupère le choix des tris et nettoyer les données
+        $sortColumn = filter_input(INPUT_GET, 'sort', FILTER_SANITIZE_SPECIAL_CHARS) ?? 'date_creation';
+        $sortOrder = filter_input(INPUT_GET, 'order', FILTER_SANITIZE_SPECIAL_CHARS) ?? 'DESC';
 
-        // On affiche la page de modification de l'article.
+        if($sortColumn === "nbOfComments") {
+            $withComments = true;
+        } else {
+            $withComments = false;
+        }
+
+        // on récupère les articles triés
+        $articleManager = new ArticleManager();
+    
+        $articles = $articleManager->getAllArticles($sortColumn, $sortOrder, $withComments);
+        
+        // Transmettre les variables à la vue
         $view = new View("Page de monitoring");
         $view->render("monitoringPage",[
-            'articles' => $articles
+            'articles' => $articles,
+            'sortColumn' => $sortColumn,
+            'sortOrder' => $sortOrder,
         ]);
     }
 

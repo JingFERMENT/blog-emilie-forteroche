@@ -11,10 +11,22 @@ class ArticleManager extends AbstractEntityManager
      * Récupère tous les articles.
      * @return array : un tableau d'objets Article.
      */
-    public function getAllArticles() : array
+    public function getAllArticles(?string $sortColumn = 'date_creation', ?string $sortOrder = 'DESC', bool $withComments = false) : array
     {
-        $sql = "SELECT * FROM article";
+        if($withComments) {
+            $sql = "SELECT article.*, COUNT(comment.id) AS nbOfComments
+            FROM `article`
+            LEFT JOIN `comment` ON comment.id_article = article.id
+            GROUP BY article.id
+            ORDER BY COUNT(comment.id) $sortOrder;";
+
+        } else {
+            $sql = "SELECT * FROM `article` ORDER BY `article`.`$sortColumn` $sortOrder;";
+        }
+        
+        
         $result = $this->db->query($sql);
+        
         $articles = [];
         
         $commentManager = new CommentManager();
@@ -23,7 +35,7 @@ class ArticleManager extends AbstractEntityManager
 
             // ajouter le nombre de commentaire
             $articleId = $articleData['id'];
-            $nbOfComments = $commentManager->countCommentsForArticle($articleId);
+            $nbOfComments = $commentManager->countCommentsForArticle($articleId);  
             $articleData['nbOfComments'] = $nbOfComments;
             
             $dateOfPublication = new DateTime($articleData['date_creation']);
