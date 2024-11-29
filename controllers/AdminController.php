@@ -57,6 +57,32 @@ class AdminController {
         ]);
     }
 
+    public function showCommentPage(): void{
+
+        $this->checkIfUserIsConnected();
+        
+        
+        $id = intval(filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT));
+        
+         // on récupère les articles triés
+        $articleManager = new ArticleManager();
+    
+        $article = $articleManager->getArticleById($id);
+
+
+        $commentManager = new CommentManager();
+        $comments= $commentManager->getAllCommentsByArticleId($id);
+        
+
+
+        // Transmettre les variables à la vue
+        $view = new View("Page de commentaire");
+        $view->render("commentPage",[
+            'comments' => $comments,
+            'article' => $article
+        ]);
+    }
+
     /**
      * Vérifie que l'utilisateur est connecté.
      * @return void
@@ -207,6 +233,26 @@ class AdminController {
 
         // On redirige vers la page d'administration.
         Utils::redirect("admin");
+    }
+
+    /**
+     * Suppression d'un commentaire.
+     * @return void
+     */
+    public function deleteComment(): void
+    {
+        $this->checkIfUserIsConnected();
+
+        $id = Utils::request("id", -1);
+
+        // On supprime le commentaire
+        $commentManager = new CommentManager();
+        $comment = $commentManager->getCommentById($id);
+        $commentIdArticle = $comment->getIdArticle();
+        $commentManager->deleteComment($comment);
+
+        // On redirige vers la page de commentaire
+        Utils::redirect("showCommentPage", ['id' => $commentIdArticle]);
     }
 
     

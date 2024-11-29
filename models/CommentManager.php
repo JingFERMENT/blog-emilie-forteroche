@@ -32,6 +32,7 @@ class CommentManager extends AbstractEntityManager
         $sql = "SELECT * FROM comment WHERE id = :id";
         $result = $this->db->query($sql, ['id' => $id]);
         $comment = $result->fetch();
+        
         if ($comment) {
             return new Comment($comment);
         }
