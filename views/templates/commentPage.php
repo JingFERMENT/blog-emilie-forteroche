@@ -42,10 +42,20 @@
     <?php } ?>
 </div>
 
+
 <!-- page pagination -->
 <div class="pagination">
-    <a href="#" class="prev">&laquo;</a>
-    <a href="#" class="page active">1</a>
-    <a href="#" class="page">2</a>
-    <a href="#" class="next">&raquo;</a>
+    <!-- page précédente -->
+    <a href="index.php?action=showCommentPage&page=<?= $previousPage ?>&id=<?=$article->getId()?>">&laquo;</a>
+    <!-- détail des pages -->
+    <?php
+    for ($counter = 1; $counter <= $nbOfPages; $counter++) {
+        if ($counter == $page) {
+            echo "<a class=\"active\" href=\"index.php?action=showCommentPage&page=$counter&id=".$article->getId(). "\">$counter</a>";
+        } else {
+            echo "<a href=\"index.php?action=showCommentPage&page=$counter&id=".$article->getId(). "\">$counter</a>";
+        }
+    } ?>
+    <!-- page suivante -->
+    <a href="index.php?action=showCommentPage&page=<?= $nextPage ?>&id=<?=$article->getId()?>">&raquo;</a>
 </div>

@@ -63,27 +63,65 @@ class AdminController {
         ]);
     }
 
-    public function showCommentPage(): void{
+    public function showCommentPageWithPagniation(): void{
 
         $this->checkIfUserIsConnected();
         
+        // numéro id de l'article
         $id = intval(filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT));
+
+        // la page actuelle
+        $page = intval(filter_input(INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT));
         
-         // on récupère les articles triés
+
+        if($page === 0) {
+            $page = 1;
+            $nextPage = 2;
+        }
+
+        if ($page > 1) {
+            $previousPage = $page - 1;
+        } else {
+            $previousPage = 1;
+        }
+
+        $limit = COMMENTS_PER_PAGE;
+        $offset = ($page - 1) * $limit;
+        
+         // on récupère l'article associé
         $articleManager = new ArticleManager();
-    
         $article = $articleManager->getArticleById($id);
 
+        if (!$article) {
+            throw new Exception("Article non trouvé: $id");
+        }
 
+        // on récupère les commentaires liés à cet article
         $commentManager = new CommentManager();
-        $comments= $commentManager->getAllCommentsByArticleId($id);
+        $comments= $commentManager->getAllCommentsByArticleId($id, $limit, $offset);
+        $nbOfComments = $commentManager->countCommentsForArticle($id);
 
+        $nbOfPages = ceil($nbOfComments / COMMENTS_PER_PAGE);
+
+        if ($page >= $nbOfPages) {
+            $nextPage = $page;
+        } else {
+            $nextPage = $page + 1;
+        }
+
+        if($comments == []) {
+            throw new Exception ("Page non trouvé : $page");
+        }
 
         // Transmettre les variables à la vue
         $view = new View("Page de commentaire");
         $view->render("commentPage",[
             'comments' => $comments,
-            'article' => $article
+            'article' => $article,
+            'page'=> $page,
+            'nbOfPages'=>$nbOfPages,
+            'nextPage'=>$nextPage,
+            'previousPage' =>$previousPage
         ]);
     }
 

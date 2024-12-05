@@ -7,19 +7,30 @@ class CommentManager extends AbstractEntityManager
 {
     /**
      * Récupère tous les commentaires d'un article.
-     * @param int $idArticle : l'id de l'article.
+     * @param int $idArticle :: l'id de l'article.
+     * @param mixed $limit
+     * @param mixed $offset
+     * 
      * @return array : un tableau d'objets Comment.
      */
-    public function getAllCommentsByArticleId(int $idArticle) : array
+    public function getAllCommentsByArticleId(int $idArticle, $limit, $offset) : array
     {
-        $sql = "SELECT * FROM comment WHERE id_article = :idArticle";
-        $result = $this->db->query($sql, ['idArticle' => $idArticle]);
+        $sql = "SELECT * FROM comment 
+        WHERE id_article = :idArticle 
+        ORDER BY `date_creation` DESC 
+        LIMIT $limit OFFSET $offset";
+        
+        $result = $this->db->query(
+            $sql, ['idArticle' => $idArticle]);
+    
         $comments = [];
 
         while ($comment = $result->fetch()) {
             $comments[] = new Comment($comment);
         }
+        
         return $comments;
+         
     }
 
     /**

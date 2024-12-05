@@ -415,12 +415,11 @@ a.info {
 .pagination a.active {
     color: var(--backgroundColor);
     font-weight: bold;
-    border: 1px solid var(--commentColor);
-    background-color: var(--commentColor);
+    background-color: var(--headerColor);
 }
 
 .pagination a:hover {
-    background-color: var(--commentColor);
+    background-color: var(--headerColor);
     color: var(--backgroundColor);
 }
 
@@ -432,8 +431,8 @@ a.info {
 
 .pagination a.prev:hover,
 .pagination a.next:hover {
-    color: var(--commentPaleColor);
-    background-color: #f1f1f1;
+    color:black;
+    background-color: #c9c7c7;
 }
 
 /** 
