@@ -34,15 +34,21 @@ class AdminController {
         $this->checkIfUserIsConnected();
 
         // on récupère le choix des tris et nettoyer les données
-        $sortColumn = filter_input(INPUT_GET, 'sort', FILTER_SANITIZE_SPECIAL_CHARS) ?? 'date_creation';
-        $sortOrder = filter_input(INPUT_GET, 'order', FILTER_SANITIZE_SPECIAL_CHARS) ?? 'DESC';
+        $sortColumn = filter_input(INPUT_GET, 'sort', FILTER_SANITIZE_SPECIAL_CHARS);
+        $sortOrder = filter_input(INPUT_GET, 'order', FILTER_SANITIZE_SPECIAL_CHARS);
 
-        if($sortColumn === "nbOfComments") {
-            $withComments = true;
-        } else {
-            $withComments = false;
+        // Liste des colonnes autorisées
+        if(!in_array($sortColumn, VALID_COLUMNS)){
+            $sortColumn = 'date_creation'; // tri par défaut
+        } 
+
+        if(!in_array($sortOrder, VALID_ORDERS)){
+            $sortOrder = 'DESC';// tri par défaut
         }
 
+        // conditon booléenne pour savoir si le tri est sur le nombre des commentaires
+        $withComments = ($sortColumn === "nbOfComments");
+        
         // on récupère les articles triés
         $articleManager = new ArticleManager();
     
@@ -61,7 +67,6 @@ class AdminController {
 
         $this->checkIfUserIsConnected();
         
-        
         $id = intval(filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT));
         
          // on récupère les articles triés
@@ -72,7 +77,6 @@ class AdminController {
 
         $commentManager = new CommentManager();
         $comments= $commentManager->getAllCommentsByArticleId($id);
-        
 
 
         // Transmettre les variables à la vue

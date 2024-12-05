@@ -20,10 +20,10 @@
         <div class="content">Contenue</div>
         <!-- tri date de publication -->
         <div class="title">
-           Date de publication
+            Date de publication
         </div>
         <div class="title">
-           Action à faire
+            Action à faire
         </div>
     </div>
     <?php foreach ($comments as $comment) { ?>
@@ -40,4 +40,12 @@
             </div>
         </div>
     <?php } ?>
+</div>
+
+<!-- page pagination -->
+<div class="pagination">
+    <a href="#" class="prev">&laquo;</a>
+    <a href="#" class="page active">1</a>
+    <a href="#" class="page">2</a>
+    <a href="#" class="next">&raquo;</a>
 </div>

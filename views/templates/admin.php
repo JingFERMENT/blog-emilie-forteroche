@@ -26,7 +26,7 @@
             <div><a class="submit" href="index.php?action=deleteArticle&id=<?= $article->getId() ?>" <?= Utils::askConfirmation("Êtes-vous sûr de vouloir supprimer cet article ?") ?>>Supprimer</a></div>
             <div class="title-comments">
                 <?php if ($article->getNbOfComments() === 0) {
-                    echo "-";
+                    echo "0";
                 } else {?>
                     <?= $article->getNbOfComments() ?>
                     <div>
