@@ -1,22 +1,69 @@
 ## Blog d'Emilie Forteroche
 
-## Pour utiliser ce projet : 
+Ce projet est une application web de blog permettant à l'administratrice Emilie Forteroche de publier des articles, de gérer les commentaires, et de surveiller les statistiques du blog.
 
-- Commencer par cloner le projet. 
-- installez le projet chez vous, dans un dossier exécuté par un serveur local (type MAMP, WAMP, LAMP, etc...)
-- Une fois installé chez vous, créez un base de données vide appelée : "blog_forteroche"
-- Importez le fichier _blog_forteroche.sql_ dans votre base de données.
+---
 
-## Lancez le projet ! 
+## 🚀 Fonctionnalités développées
 
-Pour la configuration du projet renomez le fichier _\_config.php_ (dans le dossier _config_) en _config.php_ et éditez le si nécessaire. 
-Ce fichier contient notamment les informations de connextion à la base de données. 
+### Gestion des données
+- **Suivi des statistiques :** La base de données a été mise à jour pour inclure le nombre de vues par page.
+- **Sécurité :** Toutes les requêtes SQL sont préparées afin d'éviter les injections SQL.
 
-Pour vous connecter en partie admin, le login est "Emilie" et le mot de passe est "password" (attention aux majuscules)
+### Fonctionnalités d'administration
 
-## Problèmes courants :
+- **Monitoring :** Toutes les informations importantes (articles, vues, commentaires, date de publications) sont accessibles sur une page de monitoring.
 
-Il est possible que la librairie intl ne soit pas activée sur votre serveur par défaut. Cette librairie sert notamment à traduire les dates en français. Dans ce cas, vous pouvez soit utiliser l'interface de votre serveur local pour activer l'extention (wamp), soit aller modifier directement le fichier _php.ini_. 
+- **Tri des données :**
+  - Les colonnes suivantes peuvent être triées en ordre croissant ou décroissant :
+    - Titre
+    - Date de publication
+    - Nombre de vues
+    - Nombre de commentaires
 
-Ce projet a été réalisé avec PHP 8.2. Bien que d'autres versions de PHP puissent fonctionner, il n'est pas garanti que le projet fonctionne avec des versions antérieures.
+- **Gestion des commentaires :**
+  - Suppression des commentaires associés à chaque article.
+  - Recherche rapide dans les commentaires grâce à une barre de recherche intégrée.
+  - Pagination: Les commentaires sont paginés pour améliorer la navigation et la lisibilité.
 
+---
+
+
+## ⚙️ Installation et utilisation
+
+### Étape 1 : Cloner le projet
+Clonez ce dépôt Git dans un dossier accessible par votre serveur local (MAMP, WAMP, LAMP, etc.).
+
+### Étape 2 : Configurer la base de données
+1. Créez une base de données vide nommée `blog_forteroche`.
+2. Importez le fichier `blog_forteroche.sql` inclus dans le projet pour initialiser la structure et les données.
+
+### Étape 3 : Configurer l'application
+1. Éditez le fichier `config.php`.
+2. Renseignez les informations de connexion à votre base de données :
+   - **Hôte** : Adresse de votre serveur de base de données.
+   - **Utilisateur** : Nom d'utilisateur de la base de données.
+   - **Mot de passe** : Mot de passe de l'utilisateur.
+   - **Nom de la base** : `blog_forteroche`.
+
+### Étape 4 : Lancer le projet
+Ouvrez le projet dans votre navigateur en accédant à l'URL locale configurée, par exemple :  
+`http://localhost/blog-forteroche`.
+
+---
+
+## 🔐 Connexion administrateur
+
+Pour accéder à l'interface administrateur, utilisez les identifiants suivants :  
+- **Login :** `Emilie`  
+- **Mot de passe :** `password`
+
+---
+
+## 🛠 Configuration spécifique
+
+Si vous rencontrez des problèmes avec les dates affichées, vérifiez que la librairie PHP **`intl`** est activée :  
+- Sur **WAMP**, vous pouvez activer cette extension via l'interface graphique.  
+- Sur d'autres serveurs, modifiez manuellement le fichier `php.ini` et décommentez la ligne correspondante à `intl`.  
+
+> **Note :** Ce projet a été testé avec PHP 8.2. Bien que des versions ultérieures puissent fonctionner, l'utilisation de versions antérieures n'est pas garantie.
