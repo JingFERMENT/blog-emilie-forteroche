@@ -12,6 +12,17 @@
 </div>
 
 <h2>Liste des commentaires</h2>
+
+<form action="/index.php" method="GET" class="form-research">
+    <!--utiliser input type hidden pour chercher les paramètres après index.php -->
+    <!--paramètre action=ShowCommentPage -->
+    <input type="hidden" name="action" value="showCommentPage"></input>
+    <!--paramètre id=id_article -->
+    <input type="hidden" name="id" value="<?=$article->getId()?>"></input>
+    <input type="search" name="keywords" placeholder="Saisir vos mots clés..." value=<?=$keywords ?? ''?>>
+    <button type="submit" class="submit" >Rechercher</button>
+</form>
+
 <div class="adminArticle">
     <div class="articleLine header">
         <!-- Pseudo-->

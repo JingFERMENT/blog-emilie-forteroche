@@ -70,9 +70,11 @@ class AdminController {
         // numéro id de l'article
         $id = intval(filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT));
 
-        // la page actuelle
+        // page actuelle
         $page = intval(filter_input(INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT));
         
+        // mots-clés
+        $keywords = filter_input(INPUT_GET, 'keywords', FILTER_SANITIZE_SPECIAL_CHARS);
 
         if($page === 0) {
             $page = 1;
@@ -98,7 +100,7 @@ class AdminController {
 
         // on récupère les commentaires liés à cet article
         $commentManager = new CommentManager();
-        $comments= $commentManager->getAllCommentsByArticleId($id, $limit, $offset);
+        $comments= $commentManager->getAllCommentsByArticleId($id, $limit, $offset, $keywords);
         $nbOfComments = $commentManager->countCommentsForArticle($id);
 
         $nbOfPages = ceil($nbOfComments / COMMENTS_PER_PAGE);

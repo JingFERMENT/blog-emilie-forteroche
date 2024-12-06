@@ -72,6 +72,16 @@ form {
     background-color: var(--commentPaleColor);
 }
 
+.form-research {
+    margin-top: 0;
+    padding: 0 0 20px 0;
+   background-color: var(--backgroundColor);
+   display: inline-block; /* Optionnel pour ajuster la largeur au contenu */
+    margin-left: auto; /* Utilisé avec flexbox ou grid */
+    margin-right: 0; /* S'assure qu'il est aligné à droite */
+    text-align: right; /* Aligne le texte et les boutons à droite */
+}
+
 form h2 {
     margin: 0 0 20px 0;
     color: white;

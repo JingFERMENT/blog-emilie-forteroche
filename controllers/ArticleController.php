@@ -24,10 +24,6 @@ class ArticleController
         // Récupération de l'id de l'article demandé.
         $id = Utils::request("id", -1);
         
-        $limit = COMMENTS_PER_PAGE;
-        
-        $offset = 0;
-
         $articleManager = new ArticleManager();
         
         // récupérer l'article en question 
@@ -42,7 +38,7 @@ class ArticleController
 
         $commentManager = new CommentManager();
         // récupéer tous les commentaires liés à cet article 
-        $comments = $commentManager->getAllCommentsByArticleId($id, $limit, $offset);
+        $comments = $commentManager->getAllCommentsByArticleId($id);
        
         $view = new View($article->getTitle());
         $view->render("detailArticle", ['article' => $article, 'comments' => $comments]);
