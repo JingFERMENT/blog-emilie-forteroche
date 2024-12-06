@@ -63,37 +63,43 @@ class AdminController {
         ]);
     }
 
-    public function showCommentPageWithPagniation(): void{
+    public function showCommentPage(): void{
 
         $this->checkIfUserIsConnected();
         
-        // numéro id de l'article
+        // Récupère l'ID de l'article depuis l'URL et le filtre pour éviter les injections
         $id = intval(filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT));
 
-        // page actuelle
+         // Récupère le numéro de la page actuelle depuis l'URL et le filtre
         $page = intval(filter_input(INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT));
         
-        // mots-clés
+         // Récupère les mots-clés de recherche éventuels depuis l'URL
         $keywords = filter_input(INPUT_GET, 'keywords', FILTER_SANITIZE_SPECIAL_CHARS);
 
+        // Si la page est égale à 0, elle est définie par défaut sur 1
         if($page === 0) {
             $page = 1;
             $nextPage = 2;
         }
 
+        // Calcule le numéro de la page précédente
         if ($page > 1) {
             $previousPage = $page - 1;
         } else {
             $previousPage = 1;
         }
 
+        // Nombre de commentaires à afficher par page
         $limit = COMMENTS_PER_PAGE;
+
+        // L'offset indique combien de commentaires ignorer avant de récupérer les résultats.
         $offset = ($page - 1) * $limit;
         
-         // on récupère l'article associé
+        // Récupère l'article associé à l'ID
         $articleManager = new ArticleManager();
         $article = $articleManager->getArticleById($id);
 
+        // Si l'article n'existe pas, on déclenche une exception
         if (!$article) {
             throw new Exception("Article non trouvé: $id");
         }
@@ -101,21 +107,27 @@ class AdminController {
         // on récupère les commentaires liés à cet article
         $commentManager = new CommentManager();
         $comments= $commentManager->getAllCommentsByArticleId($id, $limit, $offset, $keywords);
+        
+        // Compte le nombre total de commentaires pour cet article
         $nbOfComments = $commentManager->countCommentsForArticle($id);
 
+        // Calcule le nombre total de pages nécessaires pour afficher tous les commentaires
         $nbOfPages = ceil($nbOfComments / COMMENTS_PER_PAGE);
 
+        // Détermine le numéro de la page suivante
+        // Si on est sur la dernière page, la page suivante reste la même
         if ($page >= $nbOfPages) {
             $nextPage = $page;
         } else {
             $nextPage = $page + 1;
         }
 
+        // Si aucun commentaire n'est trouvé pour cette page, on lève une exception
         if($comments == []) {
             throw new Exception ("Page non trouvé : $page");
         }
 
-        // Transmettre les variables à la vue
+         // Transmet les données nécessaires à la vue
         $view = new View("Page de commentaire");
         $view->render("commentPage",[
             'comments' => $comments,

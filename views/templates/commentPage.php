@@ -57,7 +57,7 @@
 <!-- page pagination -->
 <div class="pagination">
     <!-- page précédente -->
-    <a href="index.php?action=showCommentPage&page=<?= $previousPage ?>&id=<?=$article->getId()?>">&laquo;</a>
+    <a href="index.php?action=showCommentPage&page=<?=$previousPage?>&id=<?=$article->getId()?>">&laquo;</a>
     <!-- détail des pages -->
     <?php
     for ($counter = 1; $counter <= $nbOfPages; $counter++) {
@@ -68,5 +68,5 @@
         }
     } ?>
     <!-- page suivante -->
-    <a href="index.php?action=showCommentPage&page=<?= $nextPage ?>&id=<?=$article->getId()?>">&raquo;</a>
+    <a href="index.php?action=showCommentPage&page=<?= $nextPage?>&id=<?=$article->getId()?>">&raquo;</a>
 </div>

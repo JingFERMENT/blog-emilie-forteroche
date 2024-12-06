@@ -18,6 +18,7 @@ class CommentManager extends AbstractEntityManager
         // Ajoutez la clause de recherche si des mots-clés sont fournis
         $research = $keywords ? " AND (`comment`.`content` LIKE :keywords)" : '';
 
+        // Requête SQL pour récupérer les commentaires
         $sql = "SELECT * FROM comment 
         WHERE id_article = :idArticle $research
         ORDER BY `date_creation` DESC 
@@ -27,9 +28,10 @@ class CommentManager extends AbstractEntityManager
             'idArticle' => $idArticle
         ];
 
-        // S'il y a les mots clées, préparez le paramètre mot-clé
+        // Ajoute le paramètre des mots-clés s'ils sont fournis (si $keyowrds = true)
         if ($keywords) {
-            $params ['keywords'] = '%' . $keywords . '%'; // Ajoutez les wildcards pour LIKE
+        // Les wildcards '%' sont ajoutés pour chercher n'importe où dans les contenus des commentaires
+            $params ['keywords'] = '%' . $keywords . '%'; 
         }
 
         $result = $this->db->query(

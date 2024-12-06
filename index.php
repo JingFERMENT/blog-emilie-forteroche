@@ -83,7 +83,7 @@ try {
         case 'showCommentPage':
             $adminController = new AdminController();
             // afficher la page commentaire
-            $adminController->showCommentPageWithPagniation();
+            $adminController->showCommentPage();
             break;
 
         case 'deleteComment':

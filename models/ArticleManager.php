@@ -17,8 +17,7 @@ class ArticleManager extends AbstractEntityManager
      */
     public function getAllArticles(?string $sortColumn = 'date_creation', ?string $sortOrder = 'DESC', bool $withComments = false): array
     {
-        // quand il y a des commentaires liés un article
-
+        // Vérifie si les articles doivent inclure le nombre de commentaires
         if ($withComments) {
             $sql = "SELECT article.*, COUNT(comment.id) AS nbOfComments
             FROM `article`
@@ -40,11 +39,17 @@ class ArticleManager extends AbstractEntityManager
             // ajouter le nombre de commentaire
             $articleId = $articleData['id'];
             $nbOfComments = $commentManager->countCommentsForArticle($articleId);
+            
+            // Ajoute le nombre de commentaires à l'article
             $articleData['nbOfComments'] = $nbOfComments;
 
+            // Convertit la date de création de l'article en objet DateTime
             $dateOfPublication = new DateTime($articleData['date_creation']);
 
+            // Ajoute la date de publication à l'article
             $articleData['date_creation'] = $dateOfPublication;
+            
+            // Crée un nouvel objet Article à partir des données et l'ajoute au tableau
             $articles[] = new Article($articleData);
         }
         return $articles;
