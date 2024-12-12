@@ -48,7 +48,7 @@ Clonez ce dépôt Git dans un dossier accessible par votre serveur local (MAMP, 
 
 ### Étape 4 : Lancer le projet
 Ouvrez le projet dans votre navigateur en accédant à l'URL locale configurée, par exemple :  
-`http://localhost/blog-forteroche`.
+`http://blog-emilie-forteroche.localhost/`.
 
 ---
 

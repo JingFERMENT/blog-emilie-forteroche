@@ -43,7 +43,7 @@ class AdminController {
         } 
 
         if(!in_array($sortOrder, VALID_ORDERS)){
-            $sortOrder = 'DESC';// tri par défaut
+            $sortOrder = 'desc';// tri par défaut
         }
 
         // conditon booléenne pour savoir si le tri est sur le nombre des commentaires
