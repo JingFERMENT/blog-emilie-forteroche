@@ -2,7 +2,7 @@
 ?>
 <div>
     <a class="submit" href="index.php?action=admin">Editeur des articles</a>
-    <a class="submit" href="index.php?action=admin">Page monitoring</a>
+    <a class="submit" href="index.php?action=showMonitoringPage">Page monitoring</a>
 </div>
 
 <h2>Rappel de l'article</h2>
